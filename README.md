@@ -1,4 +1,5 @@
 # Enunciado del Proyecto (FASE II)
+*Versión de descripción general*
 
 Universidad de San Carlos de Guatemala  
 Facultad de Ingeniería  
@@ -56,75 +57,84 @@ Es un proyecto Open Source para desarrollar un administrador de bases de datos. 
 
 La fase 2 de Estructuras de Datos consiste en desarrollar los siguientes requerimientos:
 
-### Unificación de modos de almacenamiento
+### 1. Unificación de modos de almacenamiento
 
-En cuanto se haya calificado la fase 1, algunos grupos serán los seleccionados para formar parte de los modos de almacenamiento o motores de las bases de datos TytusDB. Cada equipo debe unificar los proyectos seleccionados para formar un solo storageManager que maneje los diferentes modos de almacenamiento.
+En cuanto se haya calificado la fase 1, algunos grupos serán seleccionados para formar parte de los modos de almacenamiento o motores de las bases de datos TytusDB. Cada equipo en su carpeta asignada debe unificar los modos de los proyectos seleccionados para formar un solo storageManager que maneje los diferentes modos de almacenamiento (sin agregar de manera redundante los paquetes).
 
-### Modo de almacenamiento
+### 2. Administrador del modo de almacenamiento
 
+El storageManager debe permitir cambiar el modo de almacenamiento de una base de datos en cualquier momento. Al suceder, si no hay ningun error, se debe construir la estructura de datos asociada al modo y eliminar la anterior.
 
+### 3. Administración de índices
 
-### Cambio el modo de almacenamiento
+Mediante funciones se debe administrar los diferentes índices de una base de datos, entre los cuales figuran:
+- creación, modificación y eliminación de llaves foráneas
+- creación, modificación y eliminación de índices únicos
+- creación, modificación y eliminación de índices
 
-Todos los grupos
+### 4. Administración de la codificación
 
-índices
-- creación de llaves foráneas
-- creación de índices únicos
-- creación de índices
+Mediante funciones se debe seleccionar cualquiera de las siguientes codificaciones para una base de datos y poder modificarse:
+- ASCII
+- ISO 8859-1
+- UTF8
 
-codificación
-- ascii
-- iso 8859-1
-- utf8
+### 5. Generación del Checksum
 
-checksum
-- md5
-- sha256
+Mediante una función se debe calcular el Checksum de la base de datos, conforme lo hace SQL. Los dos algoritmos a utilizar son:
+- MD5
+- SHA256
 
-compresion
-- compress y decompress en sentencias sql
-- compress y decompress backup
-- definir una base de datos comprimida (varchar, text)
+### 6. Compresión de datos
 
-cifrado
-- base de datos cifrada
-- backup cifrado
+Mediante funciones se debe ejecutar las operaciones de comprimir y descomprimir bajo las siguientes condiciones:
+- compress y decompress en sentencias SQL
+- compress y decompress BACKUP
+- Administrar una COLUMNA de una tabla base de datos para ser comprimida (ejemplo varchar, text).
 
-grafos
-- diagrama de estructura de datos
+### 7. Seguridad
 
-Para mayor detalle ver este [enlace](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.172.3370&rep=rep1&type=pdf).
+Los conceptos de seguridad se aplicarán en dos sub componentes:
+- Criptografía: el storageManager debe proveer la manera de cifrar y descifrar ya sea una base de datos completa o también cifrar o descifrar una backup de una base de datos.
+- BlockChain: el storageManager debe proveer un mecanismo para trabajar en modo seguro una tabla. Es decir, al activar el modo seguro de una tabla, cuando se realicen operaciones de inserción se debe ir creando bloques con sus respectivos valores Hash (esto almacenado en un archivo JSON), cuando algún bloque sea modificado o eliminado la cadena quedará incosistente y debe mostrarse de manera gráfica.
 
-- diagrama de dependencias
+### 8. Grafos
+
+El storageManager debe tener un paquete de generación de diagramas de estructuras de datos basado en GraphViz. Para esto se deben crear los siguientes grafos de dependencias:
+
+- diagrama de estructura de datos: para mayor detalle ver este [enlace](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.172.3370&rep=rep1&type=pdf).
+- diagrama de dependencias: este grafo muestra las dependencias funcionales que existen en una tabla específica.
 
 
 ## Administrador de la base de datos
+
+Conforme a la arquitectura, el administrador de la base de datos debe ser capaz de interactuar con los conponentes indicados en la figura antes vista.
+
+Se sugiere iniciar con el Query Tool, que para el inicio de esta fase se estará completando en el curso correspondiente.
 
 
 ## SQL Parser
 
 La segunda fase del proyecto, en cuanto al parser de SQL, consiste en agregar los siguientes componentes:
 
-Índices
-Agregar al parser la administración de índices, la especificación está en el capítulo 11 de la documentación de PostgreSQL [Indexes](https://www.postgresql.org/docs/13/indexes.html)
+- Índices: agregar al parser la administración de índices, la especificación está en el capítulo 11 de la documentación de PostgreSQL [Indexes](https://www.postgresql.org/docs/13/indexes.html)
 
-PL/pgSQL
-Agregar al parser el lenguaje procedural, la especificación está en el capítulo 42 de la documentación de PostgreSQL [PL/pgSQL — SQL Procedural Language](https://www.postgresql.org/docs/13/plpgsql.html)
+- PL/pgSQL: agregar al parser el lenguaje procedural, la especificación está en el capítulo 42 de la documentación de PostgreSQL [PL/pgSQL — SQL Procedural Language](https://www.postgresql.org/docs/13/plpgsql.html)
 
-Traducción, optimización y ejecución de código
-La ejecución del lenguaje PL/pgSQL se realizará mediante la traducción hacia un lenguaje intermedio basado en Python y que cumpla con las características del código de tres direcciones. El código generado debe ejecutarse desde Python para mostrar los resultados al administrador de bases de datos.
+- Traducción, optimización y ejecución de código: la ejecución del lenguaje PL/pgSQL se realizará mediante la traducción hacia un lenguaje intermedio basado en Python y que cumpla con las características del código de tres direcciones. El código generado debe ejecutarse desde Python para mostrar los resultados al administrador de bases de datos.
 
 ## Reportes y entrega
 
 ### Reportes para estructuras de datos
 Los reportes de las estructuras utilizadas se deben mostrar mediante una aplicación de interfaz gráfica utilizando cualquier herramienta gráfica (que cumpla compatibilidades de licencia). 
 
-La aplicación debe mostrar de manera gráfica y navegable las siguientes estructuras:
+De la fase 1, la aplicación debe mostrar de manera gráfica y navegable las siguientes estructuras:
 - bases de datos
 - conjunto de tablas 
 - tabla
 - tupla
+
+Para la fase 2, se debe mostrar los dos grafos de dependencias y el blockchain.
 
 ### Reportes para compiladores 2
 Los reportes por entregar son los siguientes (mostrar el resultado en una ventana cuando sea ejecutada la funciones que invoquen a los reportes):
@@ -132,6 +142,7 @@ Los reportes por entregar son los siguientes (mostrar el resultado en una ventan
 - Reporte de tabla de símbolos. Debe mostrar las variables, funciones y procedimientos con mínimo los siguientes datos: identificador, tipo, dimensión, declarada en, y referencias.
 - Reporte de AST. Cuando se requiera, debe mostrar el árbol de sintaxis abstracta utilizando Graphviz en una nueva ventana que muestre solo la imagen o documento.
 - Reporte gramatical. Se debe crear en la carpeta del equipo un archivo con Markdown que muestre las dos gramáticas con sintaxis BNF. En otro documento se debe mostrar la definición dirigida por la sintaxis con la gramática seleccionada, indicando que expresiones se utilizaron, precedencia, símbolos terminales y no terminales, y las reglas semánticas. Tomar en cuenta que no es el código escrito, sino es un reporte de explicación generado automáticamente, diferente del producto entregable del proyecto que es más enfocado a la construcción del intérprete. Este reporte está enfocado más a la ejecución específica.
+- Reporte de optimizaciones. Se debe mostrar en qué parte del código aplicó alguna optimización y qué tipo. Basarse en las optimizaciones indicadas en el libro de texto, tanto de bloques como de mirilla.
 
 ### Reportes para bases de datos
 Respecto del componente de este curso no se tendrán reportes, ya que mediante el cliente se podrán ejecutar las funciones solicitadas e incluso el resultado de consultas de SQL.
@@ -158,5 +169,5 @@ En la carpeta del equipo se debe crear con Markdown un archivo de manual técnic
 - Un porcentaje será evaluado mediante una pregunta o en su defecto modificación de código (nota individual).
 
 ### Fecha de entrega
-La fecha de entrega es el domingo 6 de enero hasta las 11:59pm, se tomará hasta el último commit aceptado.
+La fecha de entrega es el miércoles 6 de enero hasta las 11:59pm, se tomará hasta el último commit aceptado.
 
