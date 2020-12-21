@@ -1,4 +1,4 @@
-# Enunciado del Proyecto (FASE I)
+# Enunciado del Proyecto (FASE II)
 
 Universidad de San Carlos de Guatemala  
 Facultad de Ingeniería  
